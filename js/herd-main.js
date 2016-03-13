@@ -31,34 +31,7 @@ function heartbeat() {
     heartbeat(ran);
   }, 2000);
 }
-
-function cattleMovement() {
-
-var maxLat = 52.350447;
-var minLat = 52.349805;
-var maxLng = 0.37722051;
-var minLng = 0.37468851;
-
-
-	for( i = 0; i < 3; i++ )
-	{
-	  var randomMultiplier = (Math.random() * 20) - 10;
-
-	  var latMovement = 0.000001 * randomMultiplier;
-	  var lngMovement = 0.000001 * randomMultiplier;
-	  
-	  var newLat = markers[i].getPosition().lat()+latMovement;
-	  var newLng = markers[i].getPosition().lng()+lngMovement;
-	  
-	  if (newLat < maxLat && newLat > minLat && newLng < maxLng && newLng > minLng)
-	  {
-		markers[i].setPosition({lat:newLat,lng:newLng});
-	  }
-	}
-  setTimeout (function(){
-    cattleMovement();
-  }, 5000);
-}
+	
 
 function startAjaxCalls() {
   setInterval(function(){
@@ -103,6 +76,7 @@ $(document).ready(function() {
     initMap();
     heartbeat();
 	cattleMovement();
+	tractorMovement();
     //startAjaxCalls();
   });
 });

@@ -12,106 +12,49 @@ function initMap() {
 
     // Multiple Markers
 
-    //lat: 52.35, lng: 0.3755
-  var markersData= [
-    ['Cattle ID 1', 52.35,0.3757, 'res/icon-cow-green.png'],
-    ['Cattle ID 2', 52.35,0.3758, 'res/icon-cow-green.png'],
-    ['Cattle ID 3', 52.35,0.3751, 'res/icon-cow-green.png'],
-    ['Cattle ID 4', 52.35,0.3752, 'res/icon-cow-green.png'],
-    ['Cattle ID 5', 52.351,0.375505, 'res/icon-cow-green.png'],
-    ['Cattle ID 6', 52.351,0.375604, 'res/icon-cow-green.png'],
-    ['Cattle ID 7', 52.35,0.375602, 'res/icon-cow-green.png'],
-    ['Cattle ID 8', 52.35,0.3757, 'res/icon-cow-green.png'],
-    ['Fence ID 1', 52.352682,0.37293971, 'res/icon-fence-green.png'],
-    ['Cattle ID 10', 52.34981,0.3756, 'res/icon-cow-green.png'],
-    ['Cattle ID 11', 52.34982,0.3757, 'res/icon-cow-green.png'],
-    ['Cattle ID 12', 52.3498,0.3759, 'res/icon-cow-green.png'],
-    ['Cattle ID 13', 52.3498,0.3753, 'res/icon-cow-green.png'],
-    ['Cattle ID 14', 52.352,0.3765, 'res/icon-cow-red.png'],
-    ['Cattle ID 15', 52.352,0.3735, 'res/icon-cow-green.png'],
-    ['Cattle ID 16', 52.351,0.37525, 'res/icon-cow-green.png'],
-    ['Tractor ID 1', 52.350329,0.37778914, 'res/icon-tractor-green.png']
+    var markersData= [
+    {title: 'Cattle ID 1', lat: 52.35, lng: 0.3757, iconImage: 'res/icon-cow-green.png', infowindowImage:'res/cow-pov-9.jpg'},
+    {title: 'Cattle ID 2', lat: 52.35, lng: 0.3758, iconImage: 'res/icon-cow-green.png',infowindowImage:'res/cow-pov-8.jpg'},
+    {title: 'Cattle ID 3', lat: 52.35, lng: 0.3751, iconImage: 'res/icon-cow-green.png',infowindowImage:'res/cow-pov-7.jpg'},
+    {title: 'Cattle ID 4', lat: 52.35, lng: 0.3752, iconImage: 'res/icon-cow-green.png',infowindowImage:'res/cow-pov-6.jpg'},
+    {title: 'Cattle ID 5', lat: 52.351, lng: 0.375505, iconImage: 'res/icon-cow-green.png',infowindowImage:'res/cow-pov-5.jpg'},
+    {title: 'Cattle ID 6', lat: 52.351, lng: 0.375604, iconImage: 'res/icon-cow-green.png',infowindowImage:'res/cow-pov-4.jpg'},
+    {title: 'Cattle ID 7', lat: 52.35, lng: 0.375602, iconImage: 'res/icon-cow-green.png',infowindowImage:'res/cow-pov-3.jpg'},
+    {title: 'Cattle ID 8', lat: 52.35, lng: 0.3757, iconImage: 'res/icon-cow-green.png',infowindowImage:'res/cow-pov-2.jpg'},
+    {title: 'Gate ID 1', lat: 52.352682, lng: 0.37293971, iconImage: 'res/icon-fence-green.png',infowindowImage:'res/cow-pov-1.jpg'},
+    {title: 'Cattle ID 10', lat: 52.34981, lng: 0.3756, iconImage: 'res/icon-cow-green.png',infowindowImage:'res/cow-pov-2.jpg'},
+    {title: 'Cattle ID 11', lat: 52.34982, lng: 0.3757, iconImage: 'res/icon-cow-green.png',infowindowImage:'res/cow-pov-3.jpg'},
+    {title: 'Cattle ID 12', lat: 52.3498, lng: 0.3759, iconImage: 'res/icon-cow-green.png',infowindowImage:'res/cow-pov-4.jpg'},
+    {title: 'Cattle ID 13', lat: 52.3498, lng: 0.3753, iconImage: 'res/icon-cow-green.png',infowindowImage:'res/cow-pov-5.jpg'},
+    {title: 'Cattle ID 14', lat: 52.352, lng: 0.3765, iconImage: 'res/icon-cow-red.png', alert: 'LABOR',infowindowImage:'res/cow-pov-6.jpg'},
+    {title: 'Cattle ID 15', lat: 52.352, lng: 0.3735, iconImage: 'res/icon-cow-green.png',infowindowImage:'res/cow-pov-7.jpg'},
+    {title: 'Cattle ID 16', lat: 52.351, lng: 0.37525, iconImage: 'res/icon-cow-green.png',infowindowImage:'res/cow-pov-8.jpg'},
+    {title: 'Tractor ID 1', lat: 52.350323, lng: 0.37678599, iconImage: 'res/icon-tractor-green.png',infowindowImage:'res/cow-pov-9.jpg'}
   ];
-
-    // Info Window Content
-  var infoWindowContent = [
-      ['<div class="info_content" style="text-align: center;">' +
-      markersData[0][0] + '<div class="infowindow-image">' +
-	  '<a href="res/cow-pov-9.jpg" data-lightbox="cattle-lightbox-1"><img src="res/cow-pov-9.jpg" style="width: 150px;"/></a></div></div>'],
-      ['<div class="info_content" style="text-align: center;">' +
-      markersData[1][0] + '<div class="infowindow-image">' +
-	  '<a href="res/cow-pov-8.jpg" data-lightbox="cattle-lightbox-2"><img src="res/cow-pov-8.jpg" style="width: 150px;"/></a></div></div>'],
-      ['<div class="info_content" style="text-align: center;">' +
-      markersData[2][0] + '<div class="infowindow-image">' +
-	  '<a href="res/cow-pov-7.jpg" data-lightbox="cattle-lightbox-3"><img src="res/cow-pov-7.jpg" style="width: 150px;"/></a></div></div>'],
-      ['<div class="info_content" style="text-align: center;">' +
-      markersData[3][0] + '<div class="infowindow-image">' +
-	  '<a href="res/cow-pov-6.jpg" data-lightbox="cattle-lightbox-4"><img src="res/cow-pov-6.jpg" style="width: 150px;"/></a></div></div>'],
-      ['<div class="info_content" style="text-align: center;">' +
-      markersData[4][0] + '<div class="infowindow-image">' +
-	  '<a href="res/cow-pov-5.jpg" data-lightbox="cattle-lightbox-5"><img src="res/cow-pov-5.jpg" style="width: 150px;"/></a></div></div>'],
-      ['<div class="info_content" style="text-align: center;">' +
-      markersData[5][0] + '<div class="infowindow-image">' +
-	  '<a href="res/cow-pov-4.jpg" data-lightbox="cattle-lightbox-6"><img src="res/cow-pov-4.jpg" style="width: 150px;"/></a></div></div>'],
-      ['<div class="info_content" style="text-align: center;">' +
-      markersData[6][0] + '<div class="infowindow-image">' +
-	  '<a href="res/cow-pov-3.jpg" data-lightbox="cattle-lightbox-7"><img src="res/cow-pov-3.jpg" style="width: 150px;"/></a></div></div>'],
-      ['<div class="info_content" style="text-align: center;">' +
-	  markersData[7][0] + '<div class="infowindow-image">' +
-	  '<a href="res/cow-pov-2.jpg" data-lightbox="cattle-lightbox-8"><img src="res/cow-pov-2.jpg" style="width: 150px;"/></a></div></div>'],
-      ['<div class="info_content" style="text-align: center;">' +
-      markersData[8][0] + '<div class="infowindow-image">' +
-	  '<a href="res/cow-pov-1.jpg" data-lightbox="cattle-lightbox-9"><img src="res/cow-pov-1.jpg" style="width: 150px;"/></a></div></div>'],
-      ['<div class="info_content" style="text-align: center;">' +
-      markersData[9][0] + '<div class="infowindow-image">' +
-	  '<a href="res/cow-pov-2.jpg" data-lightbox="cattle-lightbox-10"><img src="res/cow-pov-2.jpg" style="width: 150px;"/></a></div></div>'],
-      ['<div class="info_content" style="text-align: center;">' +
-      markersData[10][0] + '<div class="infowindow-image">' +
-	  '<a href="res/cow-pov-3.jpg" data-lightbox="cattle-lightbox-11"><img src="res/cow-pov-3.jpg" style="width: 150px;"/></a></div></div>'],
-      ['<div class="info_content" style="text-align: center;">' +
-      markersData[11][0] + '<div class="infowindow-image">' +
-	  '<a href="res/cow-pov-4.jpg" data-lightbox="cattle-lightbox-12"><img src="res/cow-pov-4.jpg" style="width: 150px;"/></a></div></div>'],
-      ['<div class="info_content" style="text-align: center;">' +
-      markersData[12][0] + '<div class="infowindow-image">' +
-	  '<a href="res/cow-pov-5.jpg" data-lightbox="cattle-lightbox-13"><img src="res/cow-pov-5.jpg" style="width: 150px;"/></a></div></div>'],
-      ['<div class="info_content" style="text-align: center;">' +
-       markersData[13][0] + 
-        '<div class="alert alert-danger">'
-        + '<span class="glyphicon glyphicon-exclamation-sign"></span>' +
-        '&nbsp<strong>In Labor</strong></div>' +
-      '<div class="infowindow-image">'+
-	  '<a href="res/cow-pov-6.jpg" data-lightbox="cattle-lightbox-14"><img src="res/cow-pov-6.jpg" style="width: 150px;"/></a></div'+
-	  '<br><br><a href="#cattle" onclick="viewCattle()">View Details</a>' +
-	  '</div>'],
-      ['<div class="info_content" style="text-align: center;">' +
-      markersData[14][0] + '<div class="infowindow-image">' +
-	  '<a href="res/cow-pov-7.jpg" data-lightbox="cattle-lightbox-15"><img src="res/cow-pov-7.jpg" style="width: 150px;"/></a></div></div>'],
-      ['<div class="info_content" style="text-align: center;">' +
-      markersData[15][0] + '<div class="infowindow-image">' +
-	  '<a href="res/cow-pov-8.jpg" data-lightbox="cattle-lightbox-16"><img src="res/cow-pov-8.jpg" style="width: 150px;"/></a></div></div>'],
-      ['<div class="info_content" style="text-align: center;">' +
-      markersData[16][0] + '<div class="infowindow-image">' +
-	  '<a href="res/cow-pov-9.jpg" data-lightbox="cattle-lightbox-17"><img src="res/cow-pov-9.jpg" style="width: 150px;"/></a></div></div>'],
-
-  ];
+  
+  //dynamically create content for infoWindow
+for (var i = 0; i<markersData.length; i++){
+	markersData[i].infoWindowContent = createInfoWindowContent(markersData[i].title,markersData[i].infowindowImage, markersData[i].alert);
+  }
 
   // Display multiple markers on a map
   var infoWindow = new google.maps.InfoWindow(), marker, i;
 
   // Loop through our array of markers & place each one on the map
-  for( i = 0; i < markersData.length; i++ ) {
-    var position = new google.maps.LatLng(markersData[i][1], markersData[i][2]);
+  for( var i = 0; i < markersData.length; i++ ) {
+    var position = new google.maps.LatLng(markersData[i].lat, markersData[i].lng);
     bounds.extend(position);
     marker = new google.maps.Marker({
           position: position,
           map: map,
-          title: markersData[i][0],
-          icon: markersData[i][3]
+          title: markersData[i].title,
+          icon: markersData[i].iconImage,
+		  infoWindowContent: markersData[i].infoWindowContent
       });
     // Allow each marker to have an info window
     google.maps.event.addListener(marker, 'click', (function(marker, i) {
       return function() {
-        infoWindow.setContent(infoWindowContent[i][0]);
+        infoWindow.setContent(marker.infoWindowContent);
         infoWindow.open(map, marker);
       }
     })(marker, i));
@@ -127,4 +70,89 @@ function initMap() {
       this.setZoom(16);
       google.maps.event.removeListener(boundsListener);
   });
+}
+
+function createInfoWindowContent(title, image, alert){
+
+var output = "";
+if (alert === 'LABOR')
+{
+	output = '<div class="info_content" style="text-align: center;">' +
+       title + 
+        '<div class="alert alert-danger">'
+        + '<span class="glyphicon glyphicon-exclamation-sign"></span>' +
+        '&nbsp<strong>In Labor</strong></div>' +
+      '<div class="infowindow-image">'+
+	  '<a href="'+image+'" data-lightbox="cattle-lightbox-14"><img src="'+image+'" style="width: 150px;"/></a></div'+
+	  '<br><br><a href="#cattle" onclick="viewCattle()">View Details</a>' +
+	  '</div>'
+}
+else
+{
+output = '<div class="info_content" style="text-align: center;">' +
+			title +
+			'<div class="infowindow-image">' +
+			'<a href="' + image +'" data-lightbox="' + image +'"><img src="' + image + '" style="width: 150px;"/>'+
+			'</a></div></div>'
+}
+
+return output;
+
+}
+
+
+function cattleMovement() {
+
+var maxLat = 52.350447;
+var minLat = 52.349805;
+var maxLng = 0.37722051;
+var minLng = 0.37468851;
+
+//some cows
+	for( i = 0; i < 3; i++ )
+	{
+	  var randomMultiplier = (Math.random() * 20) - 10;
+
+	  var latMovement = 0.000001 * randomMultiplier;
+	  var lngMovement = 0.000001 * randomMultiplier;
+	  
+	  var newLat = markers[i].getPosition().lat()+latMovement;
+	  var newLng = markers[i].getPosition().lng()+lngMovement;
+	  
+	  if (newLat < maxLat && newLat > minLat && newLng < maxLng && newLng > minLng)
+	  {
+		markers[i].setPosition({lat:newLat,lng:newLng});
+	  }
+	}
+	  
+  setTimeout (function(){
+    cattleMovement();
+  }, 5000);
+}
+
+
+function tractorMovement(){
+
+var markerNumber = 16;
+//tractor
+var maxLat = 52.350736;
+var minLat = 52.349976;
+var maxLng = 0.37782133;
+var minLng = 0.37629783;
+	  var randomMultiplier = (Math.random() * 20) - 10;
+
+	  var latMovement = 0.000001 * randomMultiplier;
+	  var lngMovement = 0.000001 * randomMultiplier;
+	  
+	  var newLat = markers[markerNumber].getPosition().lat()+latMovement;
+	  var newLng = markers[markerNumber].getPosition().lng()+lngMovement;
+	  
+	  if (newLat < maxLat && newLat > minLat && newLng < maxLng && newLng > minLng)
+	  {
+		markers[markerNumber].setPosition({lat:newLat,lng:newLng});
+	  }
+	  
+	  setTimeout (function(){
+    tractorMovement();
+  }, 1000);
 }
