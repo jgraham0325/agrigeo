@@ -1,0 +1,112 @@
+body {
+  padding-top: 70px;
+  background-image: url('res/FarmLand.jpg');
+  background-size: cover;
+  color: white;
+}
+
+.navbar-custom {
+  display: block;
+	padding: 10px;
+	background-color: #4B90CD;
+	border-bottom: 3px solid white;
+	text-align: left;
+	overflow: auto;
+	color: white;
+}
+
+.legend {
+    color: black;
+    text-align: left;
+    padding-right: 5px;
+    display: inline-block;
+    font-size: 100%;
+	float:left;
+	
+}
+
+.panel-transparent {
+    background: none;
+}
+
+.panel-transparent .panel-body{
+    background: rgba(256, 256, 256, 0.2)!important;
+}
+
+div.thingCell {
+	display: inline-block;
+	text-align:center;
+	border-radius:10px;
+	margin:20px;
+	padding:0px;
+	border: 3px solid white;
+	background-color: rgba(255,255,255,0.5);
+	overflow:auto;
+}
+div.thingCell.column {
+  width: 95%;
+  height: 95%;
+	display: inline-block;
+	text-align:left;
+	border-radius:10px;
+	margin:20px;
+	padding:10px;
+	border: 3px solid white;
+	background-color: rgba(255,255,255,0.3);
+	color: black;
+	overflow:auto;
+}
+
+div.thingCell.selected {
+	border: 3px solid black;
+}
+
+
+div.thingCell img.thingImg {
+	max-width:100px;
+	max-height:100px;
+	margin-bottom:20px
+}
+
+div.thingCell > span.vGroup {
+	display: inline-block;
+	vertical-align: middle;
+}
+div.thingCell > span.vGroup.dummy {
+	height:100%;
+}
+
+div.thingInfo {
+	margin:10px;
+	padding:30px;
+	background-color: rgba(255,255,255,0.6);
+	border-radius: 10px;
+	border: 3px solid white;
+	width:800px;
+	height:800px;
+	overflow:auto;
+}
+
+.info_content{
+  color: black;
+  
+}
+
+.modal-header{
+  color: black;
+}
+
+#dateDiv{
+float:right;
+padding-right:20px;
+}
+
+#droneButton{
+    position: relative;
+    margin-top: 5px;
+    float:right;
+}
+.alert-danger{
+padding: 0px;
+margin-bottom: 5px;
+}
