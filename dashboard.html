@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+   <!-- Mirrored from sales-uk.eurotech.com/soprasteria/dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 12 Mar 2016 14:44:51 GMT -->
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Sopra Steria | GoLive | Livestock Management</title>
+      <!-- Bootstrap core CSS -->
+      <link href="css/bootstrap.min.css" rel="stylesheet">
+      <link href="eth/css/nv.d3.css" rel="stylesheet">
+      <link href="eth/css/login.css" rel="stylesheet">
+      <link href="golive-main.css" rel="stylesheet">
+      <link href="http://vjs.zencdn.net/5.8.0/video-js.css" rel="stylesheet">
+	  <link href="eth/css/lightbox.css" rel="stylesheet">
+   </head>
+   <body>
+      <nav class="navbar navbar-inverse navbar-fixed-top navbar-custom">
+         <span class="pull-left">
+         <img src="res/soprasteria.png" style="width: 200px"/>
+         <img src="eth/images/eurotech-white-trans.png" style="width: 180px"/><br>
+         </span>
+         <span class="pull-right" style="padding-right: 20px; padding-top: 25px; display:none;" id="account-display">
+         <strong><span id="account-id"></span></strong>
+         <button type="button" class="btn btn-primary btn-xs" onclick="logout()">Log out</button>
+         </span>
+      </nav>
+      <!-- Modal for showing drone viewer-->
+      <div id="droneModal" class="modal fade" role="dialog">
+         <div class="modal-dialog modal-lg">
+            <!-- Modal content-->
+            <div class="modal-content">
+               <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">
+                     Drone viewer  
+                     <div id="dateDiv"></div>
+                  </h4>
+               </div>
+               <div class="modal-body">
+                  <div id="videoplayer">
+                     <video id="cattledronvideo" class="video-js" width="870" height="430"
+                        poster="" data-setup='{ "controls": false, "autoplay": true, "preload": "auto", "loop": true  }'>
+                        <source src="res/cattledrone.mp4" type='video/mp4'>
+                        <p class="vjs-no-js">
+                           To view this video please enable JavaScript, and consider upgrading to a web browser that
+                           <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+                        </p>
+                     </video>
+                     <img src="res/maps-compass.png" style="width: 80px; position: absolute; top: 20px;left: 800px;"/>
+                     <img src="res/maps-compass.png" style="width: 80px; position: absolute; top: 20px;left: 20px;"/>
+					 <img src="http://www.iconsdb.com/icons/preview/green/almost-empty-xxl.png" style="width: 30px; position: absolute; top: 12px;left: 20px;"/>
+					 
+					 
+                  </div>
+               </div>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Return to base</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="row" style="display:none" id="main-display">
+         <div class="col-md-4">
+            <div class="thingCell column" id="herd-map-container">
+               <div id="herd-map" style="width:100%; height:500px"></div>
+               <!-- Commented out since it doesn't seem necessary 
+				  <div class="alert alert-success alert-dismissible">
+                  <span class="glyphicon glyphicon-ok-sign"></span>
+                  &nbsp(18/01/2015 09:25:36) <strong>All cattle accounted for.</strong></div>-->
+               <button id="droneButton" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#droneModal">Launch Drone</button>
+               <div class="legend" id="herd-legend">
+                  <strong>Legend:</strong><br>
+                  <img src="res/icon-cow-green.png"></img>Cow<br>
+                  <img src="res/icon-cow-red.png"></img>Cow - Needs Attention<br>
+				  <img src="res/icon-fence-green.png"></img>Fence - Closed<br>
+                  <img src="res/icon-fence-red.png"></img>Fence - Open<br>
+				  <img src="res/icon-tractor-green.png"></img>Tractor<br>
+                  <img src="res/icon-tractor-red.png"></img>Tractor - Needs Attention<br>
+               </div>
+            </div>
+         </div>
+         <div class="col-md-8">
+            <div class="thingCell column" id="herd-view" style="overflow-x: hidden;">
+               <div class="row">
+                  <div class="col-md-12 bg-primary" style="padding-top: 3px; height: 33px;">
+                     <span class="pull-right" style="padding-right: 10px; font-size:14pt;"><strong>Livestock Management</strong></span>
+                  </div>
+               </div>
+               <div class="row" style="padding-top:10px;">
+                  <div class="col-md-12">
+                     <div class="panel panel-primary panel-transparent">
+                        <div class="panel-heading"><strong>Overall View</strong></div>
+                        <div class="panel-body">
+                           <div class="alert alert-danger alert-dismissible" onclick="viewCattle()" style="cursor: pointer;">
+                              <span class="glyphicon glyphicon-exclamation-sign"></span>
+                              &nbsp(18/01/2015 01:30:25) <strong>Cattle ID 14 in Labor</strong>
+                           </div>
+                           <table class="table">
+                              <tr>
+                                 <th>Cattle ID</th>
+                                 <th>Status</th>
+                                 <th>Suspense</th>
+                                 <th>Location</th>
+                                 <th>Date of Movement</th>
+                              </tr>
+                              <tr>
+                                 <td>1</td>
+                                 <td>Okay</td>
+                                 <td></td>
+                                 <td>Field 1</td>
+                                 <td>12/12/2015</td>
+                              </tr>
+                              <tr>
+                                 <td>2</td>
+                                 <td>Okay</td>
+                                 <td></td>
+                                 <td>Field 1</td>
+                                 <td>12/12/2015</td>
+                              </tr>
+                              <tr class="danger text-danger" style="font-weight: bold;">
+                                 <td>3</td>
+                                 <td><span class="glyphicon glyphicon-exclamation-sign"></span>&nbspBVD (overdue)</td>
+                                 <td>01/01/2016</td>
+                                 <td>Field 2</td>
+                                 <td>12/12/2015</td>
+                              </tr>
+                              <tr class="danger text-danger" style="font-weight: bold;">
+                                 <td>4</td>
+                                 <td><span class="glyphicon glyphicon-exclamation-sign"></span>&nbspTuburculosis (overdue)</td>
+                                 <td>15/12/2015</td>
+                                 <td>Field 1</td>
+                                 <td>12/12/2015</td>
+                              </tr>
+                              <tr class="danger text-danger" style="font-weight: bold;">
+                                 <td>5</td>
+                                 <td><span class="glyphicon glyphicon-exclamation-sign"></span>&nbspUpright Sensor Alert</td>
+                                 <td></td>
+                                 <td>Field 1</td>
+                                 <td>12/12/2015</td>
+                              </tr>
+                              <tr>
+                                 <td>6</td>
+                                 <td>Okay</td>
+                                 <td></td>
+                                 <td>Field 2</td>
+                                 <td>12/12/2015</td>
+                              </tr>
+                              <tr class="warning text-warning" style="font-weight: bold;">
+                                 <td>7</td>
+                                 <td><span class="glyphicon glyphicon-warning-sign"></span>&nbspHeartbeat Out of Range (96 bpm)</td>
+                                 <td></td>
+                                 <td>Field 2</td>
+                                 <td>12/15/2016</td>
+                              </tr>
+                              <tr>
+                                 <td>8</td>
+                                 <td>Okay</td>
+                                 <td></td>
+                                 <td>Field 2</td>
+                                 <td>04/15/2015</td>
+                              </tr>
+                              <tr>
+                                 <td>9</td>
+                                 <td>Okay</td>
+                                 <td></td>
+                                 <td>Field 2</td>
+                                 <td>01/17/2015</td>
+                              </tr>
+                              <tr>
+                                 <td>10</td>
+                                 <td>Okay</td>
+                                 <td></td>
+                                 <td>Field 1</td>
+                                 <td>01/17/2015</td>
+                              </tr>
+                              <tr>
+                                 <td>11</td>
+                                 <td>Okay</td>
+                                 <td></td>
+                                 <td>Field 2</td>
+                                 <td>04/15/2015</td>
+                              </tr>
+                              <tr class="warning text-warning" style="font-weight: bold;">
+                                 <td>12</td>
+                                 <td><span class="glyphicon glyphicon-warning-sign"></span>&nbspJohne's Disease (due soon)</td>
+                                 <td>30/01/2016</td>
+                                 <td>Field 2</td>
+                                 <td>04/15/2015</td>
+                              </tr>
+                              <tr>
+                                 <td>13</td>
+                                 <td>Okay</td>
+                                 <td></td>
+                                 <td>Field 2</td>
+                                 <td>04/15/2015</td>
+                              </tr>
+                              <tr class="danger text-danger" style="font-weight: bold; cursor: pointer;" onclick="viewCattle()">
+                                 <td>14</td>
+                                 <td><span class="glyphicon glyphicon-exclamation-sign"></span>&nbspIn Labor (started 18/01/2016)</td>
+                                 <td></td>
+                                 <td>Field 1</td>
+                                 <td>12/12/2015</td>
+                              </tr>
+                              <tr>
+                                 <td>15</td>
+                                 <td>Okay</td>
+                                 <td></td>
+                                 <td>Field 1</td>
+                                 <td>13/12/2015</td>
+                              </tr>
+                              <tr class="warning text-warning" style="font-weight: bold;">
+                                 <td>16</td>
+                                 <td><span class="glyphicon glyphicon-warning-sign"></span>&nbspBSE (due soon)</td>
+                                 <td>25/02/2016</td>
+                                 <td>Field 1</td>
+                                 <td>13/12/2015</td>
+                              </tr>
+                              <tr>
+                                 <td>17</td>
+                                 <td>Okay</td>
+                                 <td></td>
+                                 <td>Field 1</td>
+                                 <td>04/15/2015</td>
+                              </tr>
+                           </table>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="thingCell column" id="cattle-view" style="overflow-x: hidden; display:none">
+               <div class="row">
+                  <div class="col-md-12 bg-primary" style="padding-top: 3px; height: 33px;">
+                     <span class="pull-left" style="padding-left: 5px; font-size: 11pt; cursor: pointer; padding-top: 5px;" onclick="viewHerd()">
+                     <span class="glyphicon glyphicon-circle-arrow-left"></span>
+                     &nbspBack
+                     </a>
+                     </span>
+                     <span class="pull-right" style="padding-right: 10px; font-size: 14pt; height: 30px;"><strong>ID: 14</strong></span>
+                  </div>
+               </div>
+               <div class="row" style="padding-top: 10px">
+                  <div class="col-md-12">
+                     <div class="panel panel-primary panel-transparent">
+                        <div class="panel-heading"><strong>Medical Status</strong></div>
+                        <div class="panel-body">
+                           <div class="row">
+                              <div class="col-md-12">
+                                 <div class="alert alert-danger">
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                    &nbsp&nbsp<strong>In Labor</strong>&nbsp&nbsp&nbsp
+                                    <small>Started: 18/01/2016 01:30:25 UTC</small>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="col-sm-3">
+                                 <img src="res/Cow.png" style="width: 100%"></img>
+                              </div>
+                              <div class="col-sm-3" style="text-align: center;">
+                                 <div class="alert" id="cattle-upright-container">
+                                    <strong>Upright Sensor</strong><br>
+                                    <center><img src="res/open-close.png" class="img-responsive" style="height: 130px;"></center>
+                                    <br>
+                                    <span id="cattle-upright">Upright</span>
+                                 </div>
+                              </div>
+                              <div class="col-sm-3" style="text-align: center;">
+                                 <div class="alert" id="cattle-temp-container">
+                                    <strong>Temperature</strong><br>
+                                    <center><img src="res/temperature.png" class="img-responsive" style="height: 130px;"></center>
+                                    <br>
+                                    <span id="cattle-temp"></span>
+                                 </div>
+                              </div>
+                              <div class="col-sm-3" style="text-align: center;">
+                                 <div class="alert" id="cattle-bpm-container">
+                                    <strong>Heart Rate</strong><br>
+                                    <center><img src="res/heartbeat.png" class="img-responsive" style="height: 130px;" id="heart"></center>
+                                    <br>
+                                    <span id="cattle-bpm"></span>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-md-6">
+                     <div class="panel panel-primary panel-transparent">
+                        <div class="panel-heading"><strong>Resting Heart Beat</strong></div>
+                        <div class="panel-body">
+                           <center>
+                              <svg id="heart-beat-chart" style="width:95%; height: 200px;"></svg>
+                           </center>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="panel panel-primary panel-transparent">
+                        <div class="panel-heading"><strong>Average Temperature</strong></div>
+                        <div class="panel-body">
+                           <center>
+                              <svg id="temperature-chart" style="width:95%; height: 200px;"></svg>
+                           </center>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-md-12">
+                     <div class="panel panel-primary panel-transparent">
+                        <div class="panel-heading"><strong>Medical History</strong></div>
+                        <div class="panel-body">
+                           <div class="row">
+                              <div class="col-md-6">
+                                 <table class="table table-condensed">
+                                    <tr>
+                                       <th>Vaccination</th>
+                                       <th>Date</th>
+                                       <th>Expiration</th>
+                                    </tr>
+                                    <tr>
+                                       <td>BVD</td>
+                                       <td>12/12/2013</td>
+                                       <td>Never</td>
+                                    </tr>
+                                    <tr class="danger text-danger" style="font-weight: bold;">
+                                       <td>IBR</td>
+                                       <td>12/12/2013</td>
+                                       <td>12/12/2015</td>
+                                    </tr>
+                                    <tr>
+                                       <td>Johne's Disease</td>
+                                       <td>07/09/2015</td>
+                                       <td>Never</td>
+                                    </tr>
+                                    <tr class="warning text-warning" style="font-weight: bold;">
+                                       <td>Foot and Mouth</td>
+                                       <td>01/07/2014</td>
+                                       <td>30/01/2016</td>
+                                    </tr>
+                                    <tr class="warning text-warning" style="font-weight: bold;">
+                                       <td>Bluetongue</td>
+                                       <td>15/02/2013</td>
+                                       <td>15/02/2016</td>
+                                    </tr>
+                                    <tr class="danger text-danger" style="font-weight: bold;">
+                                       <td>Tuberculosis</td>
+                                       <td>15/01/2013</td>
+                                       <td>01/01/2016</td>
+                                    </tr>
+                                    <tr>
+                                       <td>BSE</td>
+                                       <td>07/08/2014</td>
+                                       <td>Never</td>
+                                    </tr>
+                                 </table>
+                              </div>
+                              <div class="col-md-6">
+                                 <table class="table table-condensed">
+                                    <tr>
+                                       <th>Medication</th>
+                                       <th>Date</th>
+                                       <th>Dose</th>
+                                    </tr>
+                                    <tr>
+                                       <td>Depocillin</td>
+                                       <td>15/12/2015</td>
+                                       <td>50mg</td>
+                                    </tr>
+                                    <tr>
+                                       <td>Valium</td>
+                                       <td>14/12/2015</td>
+                                       <td>10mg</td>
+                                    </tr>
+                                    <tr>
+                                       <td>Depocillin</td>
+                                       <td>14/12/2015</td>
+                                       <td>50mg</td>
+                                    </tr>
+                                    <tr>
+                                       <td>Insemination</td>
+                                       <td>17/04/2015</td>
+                                       <td>100ml</td>
+                                    </tr>
+                                    <tr>
+                                       <td>Butafosfan + B12</td>
+                                       <td>16/04/2015</td>
+                                       <td>20ml</td>
+                                    </tr>
+                                    <tr>
+                                       <td>Butafosfan + B12</td>
+                                       <td>15/04/2015</td>
+                                       <td>20ml</td>
+                                    </tr>
+                                    <tr>
+                                       <td>Butafosfan + B12</td>
+                                       <td>14/04/2015</td>
+                                       <td>20ml</td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <script src="eth/js/jquery-2.1.3.min.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+      <script src="http://vjs.zencdn.net/5.8.0/video.js"></script>
+	  <script type="text/javascript" src="eth/js/lightbox.js"></script>
+      <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+      <script src="https://maps.googleapis.com/maps/api/js"></script>
+      <script type="text/javascript" src="eth/js/d3.min.js"></script>
+      <script type="text/javascript" src="eth/js/nv.d3.min.js"></script>
+      <script type="text/javascript" src="eth/js/login.js"></script>
+      <script type="text/javascript" src="js/herd-map.js"></script>
+      <script type="text/javascript" src="js/herd-util.js"></script>
+      <script type="text/javascript" src="js/herd-main.js"></script>
+      <script type="text/javascript" src="js/herd-charts.js"></script>
+      <script type="text/javascript" src="js/herd-ajax.js"></script>
+   </body>
+</html>
