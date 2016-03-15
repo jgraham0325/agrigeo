@@ -77,6 +77,6 @@ $(document).ready(function() {
     heartbeat();
 	cattleMovement();
 	tractorMovement();
-    //startAjaxCalls();
+    startAjaxCalls();
   });
 });
