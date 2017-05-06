@@ -27,8 +27,6 @@ function initMap() {
     {title: 'Cattle ID 12', lat: 52.3498, lng: 0.3759, iconImage: 'res/icon-cow-green.png',infowindowImage:'res/cow-pov-4.jpg'},
     {title: 'Cattle ID 13', lat: 52.3498, lng: 0.3753, iconImage: 'res/icon-cow-green.png',infowindowImage:'res/cow-pov-5.jpg'},
     {title: 'Cattle ID 14', lat: 52.352, lng: 0.3765, iconImage: 'res/icon-cow-red.png', alert: 'LABOR',infowindowImage:'res/cow-pov-6.jpg'},
-    {title: 'Cattle ID 15', lat: 52.352, lng: 0.3735, iconImage: 'res/icon-cow-green.png',infowindowImage:'res/cow-pov-7.jpg'},
-    {title: 'Cattle ID 16', lat: 52.351, lng: 0.37525, iconImage: 'res/icon-cow-green.png',infowindowImage:'res/cow-pov-8.jpg'},
     {title: 'Tractor ID 1', lat: 52.350323, lng: 0.37678599, iconImage: 'res/icon-tractor-green.png',infowindowImage:'res/cow-pov-9.jpg'}
   ];
   
@@ -127,7 +125,7 @@ var minLng = 0.37468851;
 	  
   setTimeout (function(){
     cattleMovement();
-  }, 5000);
+  }, 3000);
 }
 
 

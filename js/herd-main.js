@@ -69,14 +69,10 @@ function startAjaxCalls() {
 }
 
 $(document).ready(function() {
-  interactiveLogin(function() {
-    $("#main-display").fadeIn();
-    $("#account-id").html(account);
-    $("#account-display").show();
-    initMap();
-    heartbeat();
+  $("#main-display").fadeIn();
+  initMap();
+  heartbeat();
 	cattleMovement();
 	tractorMovement();
-    startAjaxCalls();
-  });
+  //startAjaxCalls();
 });
